@@ -54,3 +54,17 @@ Returns 12
 ```
 Returns 6
 
+I'm just daydreaming now
+```
+    x
+    x()
+    x[]
+    {x}
+    [x]
+    x.y
+    (x)
+    x:[1,2,3]
+    y:[accumulator, item]
+    reduce :: [c:list, a, f:func] {...}
+    [c, a, f]::reduce
+    
