@@ -7,4 +7,5 @@ Essays To Write:
 - Thoughts on the Desirability of Meritocracy
 - Hyperaltruism and depression
 - A simulation of an Economy visualized as nodes and edges
+- Morgan's idea that Pride is a Freedom of Movement exercise for tolerant comopolitan culture
 
