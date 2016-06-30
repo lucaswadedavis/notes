@@ -154,6 +154,42 @@ function range() {
     return r;
 };
 
+var FormGroup = function () {
+    var form = Form();
+    var livingForm = LivingForm();
+    var formContainer = el('div');
+
+    dress(formContainer, containerStyle);
+    append(formContainer, form, livingForm);
+
+    return formContainer;
+};
+
+var ClickableListArea = function (state) {
+    var div = el('div');
+    var message = el('h3');
+    message.innerText = 'Clicking the button below will empty the list and add 1000 new DOM nodes - each with it\'s own event listener';
+
+    var button = Button('Cycle Selectable List', cycleSelectableList);
+    var listArea = el('div');
+    cycleSelectableList();
+
+    dress(div, containerStyle);
+    append(div, message, button, listArea);
+
+    return div;
+
+    function cycleSelectableList() {
+        var n = 1000;
+        state.things = range(state.mostRecentThing, state.mostRecentThing + n);
+        state.mostRecentThing += n;
+        emptyNode(listArea);
+        var list = SelectableList(state.things);
+        append(listArea, list);
+    };
+
+};
+
 var state = {mostRecentThing: 0, things: null};
 
 var app = {
@@ -161,24 +197,9 @@ var app = {
         var body = document.getElementsByTagName('body')[0];
         var title = el('h2');
         title.textContent = 'HTML Zero Demonstration';
-        var form = Form();
-        var livingForm = LivingForm();
-        var button = Button('Cycle Selectable List', cycleSelectableList);
-        var listArea = el('div');
-        cycleSelectableList();
-        var formContainer = el('div');
-        dress(formContainer, containerStyle);
-        append(formContainer, form, livingForm);
-        append(body, title, formContainer, button, listArea);
-
-        function cycleSelectableList() {
-            var n = 1000;
-            state.things = range(state.mostRecentThing, state.mostRecentThing + n);
-            state.mostRecentThing += n;
-            emptyNode(listArea);
-            var list = SelectableList(state.things);
-            append(listArea, list);
-        };
+        var list = ClickableListArea(state);
+        var formGroup = FormGroup();
+        append(body, title, formContainer, list);
     }
 };
 
