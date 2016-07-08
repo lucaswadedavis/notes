@@ -6,6 +6,7 @@ Howey Hubler - The $9b Loser Millionaire
 
 BookClub *Algorithms to Live By*:
 - Optimal Stopping
+    - The Secretary Problem and finding a VP of Eng (or just hiring in general)
 - Explore/Exploit
     - As a company how are approaching the Multi-Armed Bandit problem, what's the Gitten's index of our situation?
 - Sorting
@@ -17,6 +18,7 @@ BookClub *Algorithms to Live By*:
     - A good way to objectively look at UX
 - Scheduling
     - Priority Inversion and the mars rover (priority inheritance is the solution)
+    - Thrashing and meta tasks and the value of Wednesdays
     - Mail and Slack and responsiveness vs throughput in high-context-switching environments and why people work from home.
 - Bayes Theorem
 
