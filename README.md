@@ -28,6 +28,7 @@ Animation:
 Redux:
 - Redux is all about side-effects (all those dispatches and actions)
 - Is Redux an RPC?
+- Is Redux a Rube-Goldberg Machine?
 - Redux and Unix Philosophy
     - Is Redux Modular?
     - Is Redux Clear?
