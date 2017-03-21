@@ -133,18 +133,24 @@ function Form() {
     };
 
     function displayInput () {
-        const url = "https://us-central1-copernican-160521.cloudfunctions.net/copernican";
+        const URL = "https://us-central1-copernican-160521.cloudfunctions.net/copernican";
         const opts = {
           method: 'POST',
           mode: 'no-cors',
-          body: {
-            title : title.value,
-            url : url.value,
-            content : content.value
-          }
+          body: `title=${btoa(title.value)}&url=${btoa(url.value)}&content=${btoa(content.value)}`
+          //body: `title="${title.value}"&url="${url.value}"&content="${content.value}"`
+
+          /*
+          body: JSON.stringify({
+            title: title.value,
+            url: url.value,
+            content: content.value
+          })
+          */
         };
 
-        fetch(url, opts, function(data){
+        fetch(URL, opts, function(data){
+          console.log(opts);
           console.log(arguments);
         });
 
