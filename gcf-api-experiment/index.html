@@ -136,7 +136,7 @@ function Form() {
         const url = "https://us-central1-copernican-160521.cloudfunctions.net/copernican";
         const opts = {
           method: 'POST',
-          mode: 'cors',
+          mode: 'no-cors',
           body: `title=${title.value}&url=${url.value}&content=${content.value}`
         };
         fetch(url, opts, function(data){
