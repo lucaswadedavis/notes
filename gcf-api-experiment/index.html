@@ -137,15 +137,22 @@ function Form() {
         const opts = {
           method: 'POST',
           mode: 'no-cors',
-          body: `title=${title.value}&url=${url.value}&content=${content.value}`
+          body: JSON.stringify({
+            title : title.value,
+            url : url.value,
+            content : content.value
+          })
         };
+
         fetch(url, opts, function(data){
           console.log(data);
           console.log(arguments);
         });
+
         output.textContent = title.value + ' ' + content.value;
-        title.value = '';
-        content.value = '';
+        //title.value = '';
+        //url.value = '';
+        //content.value = '';
     };
 };
 
