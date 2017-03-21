@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>HTML Zero</title>
+<title>GCF API</title>
 
 <script type='text/javascript'>
 
@@ -137,15 +137,14 @@ function Form() {
         const opts = {
           method: 'POST',
           mode: 'no-cors',
-          body: JSON.stringify({
+          body: {
             title : title.value,
             url : url.value,
             content : content.value
-          })
+          }
         };
 
         fetch(url, opts, function(data){
-          console.log(data);
           console.log(arguments);
         });
 
