@@ -1,0 +1,228 @@
+<html>
+<head>
+<title>HTML Zero</title>
+
+<script type='text/javascript'>
+
+
+(function () {
+
+function append(target) {
+    for (var i = 1; i < arguments.length; i++) {
+        target.appendChild(arguments[i]);
+    }
+};
+
+function dress(domElement) {
+    var key, i, styleObject;
+    for (i = 1; i < arguments.length; i++) {
+        styleObject = arguments[i];
+        for (key in styleObject) {
+            domElement.style[key] = styleObject[key];
+        }
+    }
+
+    return domElement;
+};
+
+function el(tag) {
+    var element = document.createElement(tag);
+    for (var i = 1; i < arguments.length; i++) {
+        element.classList.add(arguments[i]);
+    }
+    return element;
+};
+
+function emptyNode(node) {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild);
+    }
+
+    return node;
+};
+
+
+var grey = '#ccc';
+
+var unselectedStyle = {backgroundColor: "white"};
+var selectedStyle = {backgroundColor: "#fc8"};
+var containerStyle = {
+    border: '1px solid ' + grey,
+    padding: '5px',
+    margin: '2px',
+    cursor: 'pointer'
+};
+
+function SelectableList(listData) {
+    var ul = el('ul');
+    var liElements = [];
+
+    liElements = listData.map(function (listItemData, index) {
+        var li = el('li');
+        li.textContent = listItemData;
+        dress(li, unselectedStyle, containerStyle);
+        li.addEventListener('click', function () {
+            clearSelection();
+            dress(li, selectedStyle);
+        });
+        return li;
+    });
+
+    append.apply(null, [ul].concat(liElements));
+
+    return ul;
+
+    function clearSelection() {
+        for (var i = 0; i < liElements.length; i++) {
+            dress(liElements[i], unselectedStyle);
+        }
+    };
+};
+
+function Input(placeholder) {
+    var input = el('input');
+    input.placeholder = placeholder || '';
+    return input;
+};
+
+function Button(textContent, onClick) {
+    var button = el('button');
+    button.textContent = textContent;
+    button.addEventListener('click', onClick);
+    return button;
+};
+
+function LivingForm() {
+    var div = el('div');
+    var title = el('h3');
+    title.textContent = 'This is a Living Form';
+    var firstName = Input('First Name');
+    firstName.addEventListener('keyup', displayInput);
+    var lastName = Input('Last Name');
+    lastName.addEventListener('keyup', displayInput);
+    var output = dress(el('div'), containerStyle);
+
+    append(div, title, firstName, lastName, output);
+
+    return div;
+
+    function displayInput () {
+        output.textContent = 'Your name is ' + firstName.value + ' ' + lastName.value;
+    };
+};
+
+function Form() {
+    var div = el('div');
+    var heading = el('h3');
+    heading.textContent = 'Enter the New Post for the Reading List';
+    var title = Input('Title');
+    title.addEventListener('keydown', pressEnter);
+    var url = Input('URL');
+    url.addEventListener('keydown', pressEnter);
+    var content = Input('Content');
+    content.addEventListener('keydown', pressEnter);
+    var output = dress(el('div'), containerStyle);
+    var submitButton = Button('Submit', displayInput);
+
+    append(div, heading, title, url, content, submitButton, output);
+
+    return div;
+
+    function pressEnter (eve) {
+        if (eve.keyCode === 13) displayInput();
+    };
+
+    function displayInput () {
+        const url = "https://us-central1-copernican-160521.cloudfunctions.net/copernican";
+        const opts = {
+          method: 'POST',
+          mode: 'cors',
+          body: `title=${title.value}&url=${url.value}&content=${content.value}`
+        };
+        fetch(url, opts, function(data){
+          console.log(data);
+          console.log(arguments);
+        });
+        output.textContent = title.value + ' ' + content.value;
+        title.value = '';
+        content.value = '';
+    };
+};
+
+function range() {
+    var startsAt = 0;
+    var upTo = 1;
+    if (arguments.length > 1) {
+        startsAt = arguments[0];
+        upTo = arguments[1];
+    } else {
+        startsAt = 0;
+        upTo = arguments[0];
+    }
+    var r = [];
+    for (var i = startsAt; i < upTo; i++) {
+        r.push(i);
+    }
+    return r;
+};
+
+var FormGroup = function () {
+    var form = Form();
+    var formContainer = el('div');
+
+    dress(formContainer, containerStyle);
+    append(formContainer, form);
+
+    return formContainer;
+};
+
+var ClickableListArea = function (state) {
+    var div = el('div');
+    var message = el('h3');
+    message.innerText = 'Clicking the button below will empty the list and add 1000 new DOM nodes - each with it\'s own event listener';
+
+    var button = Button('Cycle Selectable List', cycleSelectableList);
+    var listArea = el('div');
+    cycleSelectableList();
+
+    dress(div, containerStyle);
+    append(div, message, button, listArea);
+
+    return div;
+
+    function cycleSelectableList() {
+        var n = 1000;
+        state.things = range(state.mostRecentThing, state.mostRecentThing + n);
+        state.mostRecentThing += n;
+        emptyNode(listArea);
+        var list = SelectableList(state.things);
+        append(listArea, list);
+    };
+
+};
+
+var state = {mostRecentThing: 0, things: null};
+
+var app = {
+    init() {
+        var body = document.getElementsByTagName('body')[0];
+        var title = el('h2');
+        title.textContent = 'Google Cloud Functions API Demonstration';
+        var formContainer = FormGroup();
+        append(body, title, formContainer);
+    }
+};
+
+window.app = app;
+
+})();
+
+</script>
+
+</head>
+
+<body onLoad="app.init()">
+
+</body>
+</html>
+
