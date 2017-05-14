@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>jQuery JS Form</title>
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+<script type='text/javascript'>
+var grey = '#ccc';
+
+var containerStyle = {
+    border: '1px solid ' + grey,
+    padding: '5px',
+    margin: '2px',
+};
+
+function Input(placeholder) {
+    return $('<input/>').attr('placeholder', placeholder || '');
+};
+
+function LivingForm() {
+    var title = $('<h1/>').text('jQuery Form');
+    var firstName = Input('First Name').on('keyup', displayInput);
+    var lastName = Input('Last Name').on('keyup', displayInput);
+    var output = $('<div/>').css(containerStyle);
+
+    return $('<div/>').append(title, firstName, lastName, output);
+
+    function displayInput () {
+        output.text('Your name is ' + firstName.val() + ' ' + lastName.val());
+    };
+};
+
+function init () {
+  $('body').append(LivingForm());
+}
+</script>
+
+</head>
+
+<body onLoad="init()">
+
+</body>
+</html>
+

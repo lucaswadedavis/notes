@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>Vanilla JS Form</title>
+
+<script type='text/javascript'>
+function append(target) {
+    for (var i = 1; i < arguments.length; i++) {
+        target.appendChild(arguments[i]);
+    }
+};
+
+function dress(domElement) {
+    var key, i, styleObject;
+    for (i = 1; i < arguments.length; i++) {
+        styleObject = arguments[i];
+        for (key in styleObject) {
+            domElement.style[key] = styleObject[key];
+        }
+    }
+
+    return domElement;
+};
+
+function el(tag) {
+    var element = document.createElement(tag);
+    for (var i = 1; i < arguments.length; i++) {
+        element.classList.add(arguments[i]);
+    }
+    return element;
+};
+
+var grey = '#ccc';
+
+var containerStyle = {
+    border: '1px solid ' + grey,
+    padding: '5px',
+    margin: '2px',
+};
+
+function Input(placeholder) {
+    var input = el('input');
+    input.placeholder = placeholder || '';
+    return input;
+};
+
+function LivingForm() {
+    var div = el('div');
+    var firstName = Input('First Name');
+    firstName.addEventListener('keyup', displayInput);
+    var lastName = Input('Last Name');
+    lastName.addEventListener('keyup', displayInput);
+    var output = dress(el('div'), containerStyle);
+
+    append(div, firstName, lastName, output);
+
+    return div;
+
+    function displayInput () {
+        output.textContent = 'Your name is ' + firstName.value + ' ' + lastName.value;
+    };
+};
+
+function init () {
+    var body = document.getElementsByTagName('body')[0];
+    var title = el('h2');
+    title.textContent = 'Vanilla JS Form Boilerplate';
+    var livingForm = LivingForm();
+    append(body, title, livingForm);
+}
+</script>
+
+</head>
+
+<body onLoad="init()">
+
+</body>
+</html>
+
