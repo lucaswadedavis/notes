@@ -16,3 +16,6 @@ Essays To Write:
   - What are metastable institutions?
     - it seems to me that many of the attractive features of modernity, tolerance, rationality, liberty, may not be metastable
   - Is this a viable way to understand history?
+- The coming fissioning of the EA movement (west-coast x-risk and Oxford-based global poverty)
+- Animal Rights movement as the first big EA victory
+- Idris as a promising language for brain-computer-interfaces and other applications that require safety and 'provability'
